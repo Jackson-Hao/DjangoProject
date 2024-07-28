@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>姓名</td>
+            <td>年龄</td>
+            <td>性别</td>
+            <td>住址</td>
+            <td>是否</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in object_list %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.name}}</td>
+            <td>{{ item.age }}</td>
+            <td>{{ item.get_gender_display }}</td>
+            <td>{{ item.address }}</td>
+            <td>{% if item.temperature > 37 %}是{% else %}否{% endif %}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">暂无信息</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

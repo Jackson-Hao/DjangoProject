@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>用户登录</h1>
+<form method="post" action="/login/">
+
+    {% csrf_token %}
+    <input  type="text "name="user" placeholder="用户姓名">
+    <br>
+    <input  type="password "name="pwd" placeholder="密码">
+    <br>
+    <input type="text" name="haihao" placeholder="个人爱好">
+    <br>
+    <input type="text" name="age" placeholder="年龄">
+    <input  type="submit" value="提交">
+    <span style="color:red;">{{ error_msg }}</span>
+</form>
+
+
+
+</body>
+</html>
