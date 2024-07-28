@@ -8,7 +8,7 @@ from .models import User
 from .models import animal
 from .models import Led
 from .models import book
-from .models import user_borrowed
+# from .models import user_borrowed
 import json
 
 import os
@@ -26,7 +26,7 @@ def login_verify(request):
     data = json.loads(request.body)
     username = data.get("username")
     password = data.get("password")
-    user = user_borrowed.objects.filter(username=username, password=password).exists()
+    user = user.objects.filter(username=username, password=password).exists()
     if user:
         print("\033[32m{} {} {} \033[0m".format("User:",username,"login successful"))
         return JsonResponse({"message": "successful"})
@@ -37,7 +37,7 @@ def login_verify(request):
 def user_search(request):
     data = json.loads(request.body)
     username = data.get("username")
-    user = user_borrowed.objects.filter(username=username).exists()
+    user = user.objects.filter(username=username).exists()
     if user:
         return JsonResponse({"message": "successful"})
     else:
@@ -48,10 +48,10 @@ def regster(request):
         data = json.loads(request.body)
         username = data.get("username")
         password = data.get("password")
-        if user_borrowed.objects.filter(username=username).exists():
+        if user.objects.filter(username=username).exists():
             return JsonResponse({'message': 'existed'})
         else:
-            user_borrowed.objects.create(username=username, password=password, userright='A', borrow_bid='0')
+            user.objects.create(username=username, password=password, userright='A', borrow_bid='0')
             return JsonResponse({'message': 'successful'})
 
 
