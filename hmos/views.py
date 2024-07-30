@@ -1,3 +1,5 @@
+# version 1.0.0.24R2V1
+
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
@@ -24,9 +26,10 @@ from huaweicloudsdkiotda.v5 import *
 def login_verify(request):
     # 获取请求参数
     data = json.loads(request.body)
+    print (request.body)
     username = data.get("username")
     password = data.get("password")
-    user = user.objects.filter(username=username, password=password).exists()
+    user = User.objects.filter(username=username, password=password).exists()
     if user:
         print("\033[32m{} {} {} \033[0m".format("User:",username,"login successful"))
         return JsonResponse({"message": "successful"})
@@ -37,7 +40,7 @@ def login_verify(request):
 def user_search(request):
     data = json.loads(request.body)
     username = data.get("username")
-    user = user.objects.filter(username=username).exists()
+    user = User.objects.filter(username=username).exists()
     if user:
         return JsonResponse({"message": "successful"})
     else:
@@ -48,10 +51,10 @@ def regster(request):
         data = json.loads(request.body)
         username = data.get("username")
         password = data.get("password")
-        if user.objects.filter(username=username).exists():
-            return JsonResponse({'message': 'existed'})
+        if User.objects.filter(username=username).exists():
+            return JsonResponse({'message': 'failed'})
         else:
-            user.objects.create(username=username, password=password, userright='A', borrow_bid='0')
+            User.objects.create(username=username, password=password)
             return JsonResponse({'message': 'successful'})
 
 
